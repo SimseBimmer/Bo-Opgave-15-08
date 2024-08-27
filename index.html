@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoApp</title>
+    <link rel="stylesheet" href="assets/css/maincss.css">
+    <script src="assets/Javascript/js.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="global-header">
+            <nav>
+                <ul class="toDoApp">
+                    <li><img src="assets/images/Very Top.svg" alt="To Do App"></li>
+                </ul>
+
+            </nav>
+        </header>
+        <main>
+            <div class="mainGridContainer">
+                <div class="listsContainer">
+                    <ul class="lists">
+                        <li class="gridBorder">
+                            <div class="listItem" id="addList"><img src="assets/images/plus.svg">
+                                <h3>Add List</h3>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="rightSide">
+                    <header id="chosenList">
+                        <img src="assets/images/checkmark/CeckMark Innersvg.svg">
+                        <h2>Vælg en liste</h2>
+                        <p id="taskCount">0</p> <!-- Tilføj dette element til at vise antallet af opgaver -->
+                    </header>
+                    <div class="tasksContainer">
+                        <!-- <p id="noListSelected" class="error-message" style="display: none;">Vælg en liste</p>
+                        <p id="noTasksMessage" class="error-message" style="display: none;">Opret en task</p> -->
+
+                        <!-- Opgaverne her -->
+                    </div>
+                </div>
+            </div>
+            <div class="addTask">
+                <img src="assets/images/AddTask.svg" alt="">
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

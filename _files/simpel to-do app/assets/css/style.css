@@ -1,0 +1,101 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa; /* Lys grå baggrund for hele siden */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h1 {
+    text-align: center;
+    color: #2a2a2a; /* Mørk grå farve til overskriften */
+    margin: 20px 0;
+    font-size: 28px;
+    font-weight: 600;
+}
+.container {
+    max-width: 450px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+}
+input[type="text"],
+input[type="datetime-local"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+input[type="text"]:focus,
+input[type="datetime-local"]:focus {
+    border-color: #007bff; /* Blå farve ved fokus */
+    outline: none;
+}
+button {
+    background-color: #007bff; /* Klar blå farve */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+}
+button:hover {
+    background-color: #0056b3; /* Mørkere blå for hover-effekt */
+    transform: translateY(-2px);
+}
+button:active {
+    background-color: #004494; /* Endnu mørkere blå for aktiv tilstand */
+    transform: translateY(1px);
+}
+#task-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+.task:hover {
+    background-color: #f9f9f9; /* Lidt lysere baggrund på hover */
+}
+.task-details {
+    flex: 1;
+    margin-right: 10px;
+}
+.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+.task-date-time {
+    font-size: 14px;
+    color: #888;
+}
+@media (max-width: 600px) {
+    .task {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
