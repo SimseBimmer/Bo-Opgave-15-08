@@ -39,7 +39,8 @@ function saveTasksToLocalStorage() {
         const currentTasks = [];
         document.querySelectorAll('.tasksContainer .task').forEach(task => {
             const taskText = task.querySelector('h3').textContent;
-            currentTasks.push(taskText);
+            const isCompleted = task.classList.contains('clicked');
+            currentTasks.push({ text: taskText, completed: isCompleted });
         });
         myData[currentListIndex].listItems = currentTasks; // Update tasks in data array
         saveListsToLocalStorage(); // Save updates to localStorage
@@ -95,21 +96,33 @@ function createNewList(listName, listItems = []) {
     // Event Listener to delete the list
     deleteIcon.addEventListener('click', function(event) {
         event.stopPropagation();
-        myData = myData.filter(list => list.name !== listName); // Remove the list from data
-        saveListsToLocalStorage(); // Save changes to localStorage
+
+        // Remove the list from data
+        const listToDeleteIndex = myData.findIndex(list => list.name === listName);
+        if (listToDeleteIndex !== -1) {
+            myData.splice(listToDeleteIndex, 1); // Remove the list from myData
+        }
+
+        // Remove the list from the DOM
         newListItem.remove();
-        if (currentListIndex !== null && myData[currentListIndex].name === listName) {
+
+        if (currentListIndex !== null && myData[currentListIndex]?.name === listName) {
             // If the selected list was deleted, clear the header and tasks
             chosenListHeader.textContent = 'Select a list';
             tasksContainer.innerHTML = '';
             currentListIndex = null;
-            // Clear the task count
+            // Reset the task count
             const taskCountElement = document.getElementById('taskCount');
             if (taskCountElement) {
                 taskCountElement.textContent = '0';
             }
         }
-        updateListCount(); // Update task counts
+
+        // Save changes to localStorage
+        saveListsToLocalStorage();
+
+        // Update list counts
+        updateListCount();
     });
 
     // Add a new list to myData
@@ -118,7 +131,7 @@ function createNewList(listName, listItems = []) {
     updateListCount(); // Update task counts
 }
 
-function createNewTask(taskText) {
+function createNewTask(task) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task');
 
@@ -141,7 +154,7 @@ function createNewTask(taskText) {
     taskDiv.appendChild(checkmarkDiv);
 
     const taskTitle = document.createElement('h3');
-    taskTitle.textContent = taskText;
+    taskTitle.textContent = task.text;
     taskTitle.classList.add('taskText');
     taskDiv.appendChild(taskTitle);
 
@@ -158,7 +171,14 @@ function createNewTask(taskText) {
     checkmarkDiv.addEventListener('click', function() {
         checkDiv.classList.toggle('visible');
         taskDiv.classList.toggle('clicked');
+        saveTasksToLocalStorage(); // Save the updated state to localStorage
     });
+
+    // Set initial state
+    if (task.completed) {
+        checkDiv.classList.add('visible');
+        taskDiv.classList.add('clicked');
+    }
 
     tasksContainer.appendChild(taskDiv);
 }
@@ -182,7 +202,7 @@ function selectList(listName) {
 function renderTasks() {
     if (currentListIndex !== null) {
         tasksContainer.innerHTML = ''; // Ensure the task list is cleared before new tasks are added
-        myData[currentListIndex].listItems.forEach(taskText => createNewTask(taskText)); // Show tasks for the selected list
+        myData[currentListIndex].listItems.forEach(task => createNewTask(task)); // Show tasks for the selected list
     }
 }
 // #endregion
@@ -202,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentListIndex !== null) {
             const taskText = prompt('Enter the task:');
             if (taskText && taskText.trim() !== '') {
-                createNewTask(taskText);
+                createNewTask({ text: taskText, completed: false });
                 saveTasksToLocalStorage(); // Save the new task to localStorage
             }
         } else {

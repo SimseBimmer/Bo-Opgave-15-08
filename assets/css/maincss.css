@@ -18,8 +18,8 @@ body {
 }
 
 .container {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     max-width: 392px;
     max-height: 852px;
     box-sizing: border-box;
@@ -43,13 +43,7 @@ body {
     padding: 0;
 }
 
-#shareIcon {
-    cursor: pointer;
-    width: 130%;
-    margin: 0;
-    padding: 0;
-    margin-top: 13px;
-}
+
 
 .mainGridContainer {
     display: grid;
@@ -71,19 +65,20 @@ body {
 
 .listItem {
     display: flex;
-    align-items: center; /* Center items vertically */
+    align-items: center;
     border-bottom: 1px solid #ddd;
     padding: .5rem .25rem;
     cursor: pointer;
-    position: relative; /* Ensure proper positioning context for absolutely positioned elements */
+    position: relative;
 }
 
 .listItem img {
-    width: 50px; /* Fixed width */
-    height: auto; /* Maintain aspect ratio */
+    width: 50px;
+    height: auto;
     margin: auto 0 auto 0;
     cursor: pointer;
-    object-fit: cover; /* Ensure proper scaling within its container */
+    object-fit: cover;
+    padding: .5rem 0 .5rem .25rem;
 }
 
 .listItem h3 {
@@ -128,7 +123,7 @@ body {
 }
 
 .listItem img:last-of-type {
-    width: 20px; /* Fixed width */
+    width: 20px;
     position: absolute;
     right: .2rem;
     margin-top: 2px;
@@ -144,7 +139,6 @@ body {
 }
 
 #chosenList img {
-    width: 6%; /* Fixed width */
     margin: auto .5rem auto 1.3rem;
 }
 
@@ -166,19 +160,36 @@ body {
     width: 210px;
 }
 
+
 .checkmark {
     position: relative;
-    margin: auto 0 auto .5rem;
+    width: 30px;
+    height: 30px;
+}
+
+.checkmark img {
+    width: 100%;
+    height: 100%;
 }
 
 .check {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     opacity: 0;
-    transition: 200ms ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
+
+.check img {
+    width: 100%;
+    height: 100%;
+}
+
 
 .check.visible {
     opacity: 1;
@@ -188,22 +199,27 @@ body {
     opacity: .7;
 }
 
-.task {
-    display: flex;
-    position: relative;
+.tasksContainer {
     margin: .25rem .5rem;
+}
+
+.task {
+    position: relative;
     background-color: #fdfdfd;
-    filter: drop-shadow(0px 5px 4px #33333350);
+    padding: .5rem 1rem;
     border-radius: 15px;
-    cursor: pointer;
-    transition: 200ms ease;
-    gap: 0.25rem;
+    box-shadow: 0 0 5px #00000038;
+    margin-bottom: .5rem;
+    display: flex;
 }
 
 .task h3 {
-    margin: .7rem 0;
-    word-break: break-all;
-    max-width: 118px;
+    margin: 0;
+    margin: auto .5rem;
+}
+
+.taskText::first-letter {
+    text-transform: capitalize;
 }
 
 .task:hover .delete {
@@ -211,16 +227,26 @@ body {
 }
 
 .delete {
-    position: absolute;
-    right: 3px;
-    top: 25%;
     opacity: 0;
-    transition: 300ms ease;
+    transition: 200ms ease;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: .65rem .5rem .65rem 0;
 }
 
 .delete img {
-    width: 69%; /* Adjusted to ensure it fits well */
+    width: 100%;
 }
+
+
+
+
+
+
+
 
 .addTask {
     background-color: #E37937;
@@ -234,5 +260,5 @@ body {
 }
 
 .addTask img {
-    width: 100%; /* Ensure the image fits the container */
+    width: 100%;
 }
