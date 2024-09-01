@@ -138,6 +138,7 @@ function createNewList(listName, listItems = []) {
     // Add a new list to myData
     myData.push({ name: listName, listItems: listItems });
     saveListsToLocalStorage(); // Save the new list to localStorage
+    saveTasksToLocalStorage(); // Save the associated tasks to localStorage
     updateListCount(); // Update task counts
 
     // Log the creation for debugging
@@ -203,6 +204,7 @@ function createNewTask(task) {
         console.log('Class "visible" added to', taskDiv);
     }, 10); // Add 'visible' class after append
 
+    saveTasksToLocalStorage(); // Save tasks to localStorage after adding a new task
     updateListCount(); // Update task count whenever a new task is created
 
     // Log the task creation for debugging
@@ -259,7 +261,3 @@ addTaskButton.addEventListener('click', function() {
     }
 });
 // #endregion
-
-
-localStorage.clear();
- myData = [];

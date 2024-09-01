@@ -299,6 +299,27 @@ body {
 }
 
 /* #region Transitions */
+.listItemOverlay {
+    position: absolute;
+    top: 0;
+    left: -2rem;
+    height: 100%;
+    width: 2rem;
+    transition: left 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.listItemOverlay.visible {
+    left: 0;
+    opacity: 1;
+}
+
+.listItemOverlay img {
+    height: 80%;
+}
 
 
 
