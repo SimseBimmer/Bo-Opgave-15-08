@@ -14,6 +14,7 @@ const addTaskButton = document.querySelector('.addTask img');
 // #region Utility Functions
 function saveListsToLocalStorage() {
     localStorage.setItem('lists', JSON.stringify(myData)); // Save entire data array
+    console.log('Lists saved to localStorage.');
 }
 
 function loadListsFromLocalStorage() {
@@ -22,6 +23,7 @@ function loadListsFromLocalStorage() {
     savedLists.forEach(list => {
         createNewList(list.name, list.listItems); // Recreate each list in the DOM
     });
+    console.log('Lists loaded from localStorage.');
 }
 
 function updateListCount() {
@@ -29,7 +31,7 @@ function updateListCount() {
     listItems.forEach((item, index) => {
         const countElement = item.querySelector('p');
         if (countElement && myData[index]) {
-            countElement.textContent = myData[index].listItems.length;
+            countElement.textContent = myData[index].listItems.length; // Update task count for each list
         }
     });
 }
@@ -63,6 +65,7 @@ function createNewList(listName, listItems = []) {
         .find(item => item.querySelector('h3').textContent === listName);
 
     if (existingListItem) {
+        console.log(`List "${listName}" already exists.`);
         return; // List already exists
     }
 
@@ -77,7 +80,7 @@ function createNewList(listName, listItems = []) {
     newListContent.appendChild(newListTitle);
 
     const newListCount = document.createElement('p');
-    newListCount.textContent = listItems.length;
+    newListCount.textContent = listItems.length; // Display initial task count
     newListContent.appendChild(newListCount);
 
     const deleteIcon = document.createElement('img');
@@ -88,6 +91,12 @@ function createNewList(listName, listItems = []) {
     newListItem.appendChild(newListContent);
     listsContainer.insertBefore(newListItem, addListButton.parentElement);
 
+    // Add 'visible' class after the list item is added
+    setTimeout(() => {
+        newListItem.classList.add('visible');
+        console.log('Class "visible" added to', newListItem);
+    }, 10);
+
     // Event Listener to select the list
     newListContent.addEventListener('click', function() {
         selectList(listName);
@@ -96,15 +105,13 @@ function createNewList(listName, listItems = []) {
     // Event Listener to delete the list
     deleteIcon.addEventListener('click', function(event) {
         event.stopPropagation();
-
+        
         // Remove the list from data
-        const listToDeleteIndex = myData.findIndex(list => list.name === listName);
-        if (listToDeleteIndex !== -1) {
-            myData.splice(listToDeleteIndex, 1); // Remove the list from myData
-        }
-
+        myData = myData.filter(list => list.name !== listName);
+        
         // Remove the list from the DOM
-        newListItem.remove();
+        newListItem.classList.remove('visible');
+        setTimeout(() => newListItem.remove(), 500); // Wait for transition to finish
 
         if (currentListIndex !== null && myData[currentListIndex]?.name === listName) {
             // If the selected list was deleted, clear the header and tasks
@@ -123,12 +130,18 @@ function createNewList(listName, listItems = []) {
 
         // Update list counts
         updateListCount();
+
+        // Log the deletion for debugging
+        console.log(`List "${listName}" has been deleted.`);
     });
 
     // Add a new list to myData
     myData.push({ name: listName, listItems: listItems });
     saveListsToLocalStorage(); // Save the new list to localStorage
     updateListCount(); // Update task counts
+
+    // Log the creation for debugging
+    console.log(`List "${listName}" has been created.`);
 }
 
 function createNewTask(task) {
@@ -162,8 +175,11 @@ function createNewTask(task) {
     deleteDiv.classList.add('delete');
     deleteDiv.innerHTML = '<img src="assets/images/Delete.svg" alt="">';
     deleteDiv.addEventListener('click', function() {
-        taskDiv.remove();
+        taskDiv.classList.remove('visible');
+        setTimeout(() => taskDiv.remove(), 200); // Wait for transition to finish
         saveTasksToLocalStorage(); // Update localStorage when a task is deleted
+        // Log the task deletion for debugging
+        console.log(`Task "${task.text}" has been deleted.`);
     });
     taskDiv.appendChild(deleteDiv);
 
@@ -180,7 +196,17 @@ function createNewTask(task) {
         taskDiv.classList.add('clicked');
     }
 
+    // Add task to the container and apply transition
     tasksContainer.appendChild(taskDiv);
+    setTimeout(() => {
+        taskDiv.classList.add('visible');
+        console.log('Class "visible" added to', taskDiv);
+    }, 10); // Add 'visible' class after append
+
+    updateListCount(); // Update task count whenever a new task is created
+
+    // Log the task creation for debugging
+    console.log(`Task "${task.text}" has been created.`);
 }
 
 function selectList(listName) {
@@ -196,6 +222,9 @@ function selectList(listName) {
         }
         
         renderTasks(); // Call renderTasks to show tasks for the selected list
+
+        // Log the list selection for debugging
+        console.log(`List "${listName}" has been selected.`);
     }
 }
 
@@ -209,27 +238,28 @@ function renderTasks() {
 
 // #region Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to create a new list via prompt
-    addListButton.addEventListener('click', function() {
-        const listName = prompt('Skriv Titlen på din nye Liste:');
-        if (listName && listName.trim() !== '') {
-            createNewList(listName);
-        }
-    });
+    loadListsFromLocalStorage(); // Load lists from localStorage when the page loads
+});
 
-    // Function to create a new task via prompt
-    addTaskButton.addEventListener('click', function() {
-        if (currentListIndex !== null) {
-            const taskText = prompt('Enter the task:');
-            if (taskText && taskText.trim() !== '') {
-                createNewTask({ text: taskText, completed: false });
-                saveTasksToLocalStorage(); // Save the new task to localStorage
-            }
-        } else {
-            alert('Du skal vælge en liste først'); // Message if no list is selected
-        }
-    });
+addListButton.addEventListener('click', function() {
+    const listName = prompt('Enter a name for the new list:');
+    if (listName) {
+        createNewList(listName);
+    }
+});
 
-    loadListsFromLocalStorage(); // Load lists on page load
+addTaskButton.addEventListener('click', function() {
+    if (currentListIndex !== null) {
+        const taskText = prompt('Enter task text:');
+        if (taskText) {
+            createNewTask({ text: taskText, completed: false });
+        }
+    } else {
+        alert('Please select a list before adding tasks.');
+    }
 });
 // #endregion
+
+
+localStorage.clear();
+ myData = [];

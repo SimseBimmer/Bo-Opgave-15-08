@@ -55,6 +55,8 @@ body {
 
 .listsContainer {
     border-right: 1px solid #ddd;
+    max-height: 628px;
+    overflow: hidden;
 }
 
 .lists {
@@ -64,13 +66,15 @@ body {
 }
 
 .listItem {
+    position: relative;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: .5rem .25rem;
     cursor: pointer;
-    position: relative;
 }
+
+
 
 .listItem img {
     width: 50px;
@@ -165,6 +169,7 @@ body {
     position: relative;
     width: 30px;
     height: 30px;
+    /* margin-right: 1rem; */
 }
 
 .checkmark img {
@@ -191,6 +196,7 @@ body {
 }
 
 
+
 .check.visible {
     opacity: 1;
 }
@@ -206,16 +212,17 @@ body {
 .task {
     position: relative;
     background-color: #fdfdfd;
-    padding: .5rem 1rem;
-    border-radius: 15px;
+    padding: .5rem .5rem;
+    border-radius: 25px;
     box-shadow: 0 0 5px #00000038;
     margin-bottom: .5rem;
     display: flex;
 }
 
 .task h3 {
-    margin: 0;
-    margin: auto .5rem;
+    margin: auto .3rem;
+    max-width: 110px;
+    word-break: break-all;
 }
 
 .taskText::first-letter {
@@ -261,4 +268,39 @@ body {
 
 .addTask img {
     width: 100%;
+    scale: 1.2;
 }
+
+.listItem {
+    position: relative;
+    padding-left: .7rem;
+}
+
+.listItemOverlay {
+    position: absolute;
+    top: 0;
+    left: -2rem;
+    height: 100%;
+    width: 2rem;
+    transition: left 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.listItemOverlay.visible {
+    left: 0;
+    opacity: 1;
+}
+
+.listItemOverlay img {
+    height: 100%;
+}
+
+/* #region Transitions */
+
+
+
+
+/* #endregion Transitions */

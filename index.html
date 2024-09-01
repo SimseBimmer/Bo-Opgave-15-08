@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="assets/css/maincss.css">
     <script src="assets/Javascript/js.js" defer></script>
 </head>
-
 <body>
     <div class="container">
         <header class="global-header">
@@ -16,49 +14,37 @@
                 <ul class="toDoApp">
                     <li><img src="assets/images/Very Top.svg" alt="To Do App"></li>
                 </ul>
-
             </nav>
         </header>
         <main>
             <div class="mainGridContainer">
                 <div class="listsContainer">
                     <ul class="lists">
+                        <!-- Nye listeelementer vil blive tilføjet her -->
                         <li class="gridBorder">
-                            <div class="listItem" id="addList"><img src="assets/images/plus.svg">
+                            <div class="listItem" id="addList">
+                                <img src="assets/images/plus.svg" alt="Add List">
                                 <h3>Add List</h3>
                             </div>
                         </li>
                     </ul>
+                    
                 </div>
-
                 <div class="rightSide">
                     <header id="chosenList">
-                        <img src="assets/images/checkmark/CeckMark Innersvg.svg">
+                        <img src="assets/images/checkmark/CeckMark Innersvg.svg" alt="Checkmark">
                         <h2>Vælg en liste</h2>
-                        <p id="taskCount">0</p> <!-- Tilføj dette element til at vise antallet af opgaver -->
+                        <p id="taskCount">0</p>
                     </header>
                     <div class="tasksContainer">
-                        <!-- Tasks her -->
-                        <div class="task">
-                            <div class="checkmark">
-                                <img src="assets/images/checkmark/CeckMark Outer.svg" alt="Checkmark Outer">
-                                <div class="check">
-                                    <img src="assets/images/checkmark/CeckMark Innersvg.svg" alt="Checkmark Inner">
-                                </div>
-                            </div>
-                            <h3 class="taskText">Task Name</h3>
-                            <div class="delete">
-                                <img src="assets/images/Delete.svg" alt="">
-                            </div>
-                        </div>
+                        <!-- Tasks will appear here -->
                     </div>
                 </div>
             </div>
             <div class="addTask">
-                <img src="assets/images/AddTask.svg" alt="">
+                <img src="assets/images/AddTask.svg" alt="Add Task">
             </div>
         </main>
     </div>
 </body>
-
 </html>
