@@ -2,25 +2,22 @@
   "short_name": "PWA",
   "name": "PWA-minimum",
   "icons": [
+
     {
-      "src": "assets/images/Logo.svg",
-      "type": "image/svg+xml",
-      "sizes": "48x48"
+      "src": "assets/images/logo-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     },
     {
-      "src": "assets/images/Logo.svg",
-      "type": "image/svg+xml",
-      "sizes": "48x48"
+      "src": "assets/images/logo-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
     },
     {
-      "src": "assets/images/Logo.svg",
-      "type": "image/svg+xml",
-      "sizes": "48x48"
-    },
-    {
-      "src": "assets/images/Logo.svg",
-      "type": "image/svg+xml",
-      "sizes": "48x48"
+      "src": "assets/images/logo-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any"
     }
   ],
   "start_url": "/?source=pwa",
