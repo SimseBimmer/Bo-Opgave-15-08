@@ -176,14 +176,14 @@ function createNewTask(task) {
     deleteDiv.innerHTML = '<img src="assets/images/Delete.svg" alt="">';
     deleteDiv.addEventListener('click', function() {
         taskDiv.classList.remove('visible');
-        setTimeout(() => taskDiv.remove(), 200); // Wait for transition to finish
-        saveTasksToLocalStorage(); // Update localStorage when a task is deleted
-        // Log the task deletion for debugging
+        setTimeout(() => {
+            taskDiv.remove(); // Remove task from DOM
+            saveTasksToLocalStorage(); // Update localStorage when a task is deleted
+        }, 200); // Wait for transition to finish
         console.log(`Task "${task.text}" has been deleted.`);
     });
     taskDiv.appendChild(deleteDiv);
 
-    // Event Listener to toggle checkmark visibility
     checkmarkDiv.addEventListener('click', function() {
         checkDiv.classList.toggle('visible');
         taskDiv.classList.toggle('clicked');
@@ -196,7 +196,6 @@ function createNewTask(task) {
         taskDiv.classList.add('clicked');
     }
 
-    // Add task to the container and apply transition
     tasksContainer.appendChild(taskDiv);
     setTimeout(() => {
         taskDiv.classList.add('visible');
@@ -205,7 +204,9 @@ function createNewTask(task) {
 
     updateListCount(); // Update task count whenever a new task is created
 
-    // Log the task creation for debugging
+    // Save tasks to localStorage after task creation
+    saveTasksToLocalStorage(); 
+
     console.log(`Task "${task.text}" has been created.`);
 }
 
@@ -222,6 +223,9 @@ function selectList(listName) {
         }
         
         renderTasks(); // Call renderTasks to show tasks for the selected list
+
+        // Save the selected list to localStorage
+        saveListsToLocalStorage();
 
         // Log the list selection for debugging
         console.log(`List "${listName}" has been selected.`);
@@ -259,7 +263,3 @@ addTaskButton.addEventListener('click', function() {
     }
 });
 // #endregion
-
-
-localStorage.clear();
- myData = [];
